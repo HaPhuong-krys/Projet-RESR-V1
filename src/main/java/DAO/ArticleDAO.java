@@ -98,21 +98,22 @@ public class ArticleDAO implements DaoInterface  {
 			Statement s = con.createStatement();
 			String requeteSQL = "Select * from articles";			
 			
-			ResultSet rs = rs = s.executeQuery(requeteSQL);;
+			ResultSet rs = s.executeQuery(requeteSQL);;
 			System.out.println("Resultat de l'execution de la requete de selection:");
-			Article art = new Article();
+			//Article art = new Article();
 			
 			while (rs.next()) {
+				Article art = new Article();
 				art.setId(rs.getInt("id"));
 				art.setLibelle(rs.getString("libelle"));
 				art.setMarque(rs.getString("marque"));
 				art.setPrix(rs.getDouble("prix"));
 				art.setCategorie(rs.getString("categorie"));
 				art.setPhoto(rs.getString("photo"));
-				System.out.println("test");	
-
-				System.out.println(art);	
+			
 				articles.add(art);
+				
+				
 				
 			}
 			ConnectData.closeConnect(con);

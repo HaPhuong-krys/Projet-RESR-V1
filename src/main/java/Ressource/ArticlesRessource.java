@@ -35,6 +35,7 @@ public class ArticlesRessource {
     /*
     // Return the list of articles to the user in the browser
     @GET
+    @Path("/list")
     @Produces(MediaType.TEXT_XML)
     public List<Article> getArticlesBrowser() {
         List<Article> articles = new ArrayList<Article>();
