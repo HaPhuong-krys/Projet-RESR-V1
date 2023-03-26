@@ -10,12 +10,14 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import DAO.ArticleDAO;
@@ -32,25 +34,20 @@ public class ArticlesRessource {
 
     ArticleDAO article = new ArticleDAO();
     
-    /*
-    // Return the list of articles to the user in the browser
-    @GET
-    @Path("/list")
-    @Produces(MediaType.TEXT_XML)
-    public List<Article> getArticlesBrowser() {
-        List<Article> articles = new ArrayList<Article>();
-        articles.addAll(article.testerBD());
-        return articles;
-    }*/
-    
     // Return the list of articles for applications
     @GET
     @Path("/list")
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     public List<Article> getArticles() {
-    	List<Article> articles = new ArrayList<Article>();
-        articles.addAll(article.afficherListArticles());
-        return articles;
+        return article.afficherListArticles();
+    }
+    
+    
+    @GET
+    @Path("/{id}")
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    public Article getArticlesById(@PathParam("id") int id) {
+        return article.afficherListArticlesByID(id);
     }
 
     
@@ -62,9 +59,17 @@ public class ArticlesRessource {
     public String getCount() {
         int count = 0;//ArticlesDao.instance.getModel().size();
         return String.valueOf(count);
-    }
-
+    }   
     
+    @PUT
+    @Path("/data/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Article> updateData(@PathParam("id") int id, Article articleUpdate) {
+    	List<Article> articles = new ArrayList<Article>();
+    	articles.addAll(article.upDate(id,articleUpdate));
+        return articles;
+    }
     
     @POST
     @Produces(MediaType.TEXT_HTML)
@@ -83,5 +88,4 @@ public class ArticlesRessource {
 
         servletResponse.sendRedirect("../create_article.html");
     }
-
 }
