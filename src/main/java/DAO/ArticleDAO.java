@@ -44,7 +44,7 @@ public class ArticleDAO  {
 	}
 
 	//@Override
-	public List<Article> upDate(Article t) {
+	public void upDate(Article t) {
 		try {	
 			Connection con = ConnectData.getConnect();
 			String sql = "UPDATE articles SET" + " libelle = '" +t.getLibelle() + "'" +
@@ -59,12 +59,14 @@ public class ArticleDAO  {
 	        s.setString(4, t.getCategorie());
 	        s.setString((5), t.getPhoto());
 			
+	        s.executeUpdate();
+	        
 			ConnectData.closeConnect(con);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return articles;
+		//return articles;
 	}
 
 	//@Override
