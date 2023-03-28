@@ -37,10 +37,35 @@ public class ArticlesRessource {
     // Return the list of articles for applications
     @GET
     @Path("/list")
-    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    public List<Article> getArticles() {
-        return article.afficherListArticles();
+    @Produces({ MediaType.TEXT_HTML})
+    public String getArticles() {
+       List<Article> list_article =  article.afficherListArticles();
+       StringBuilder sb = new StringBuilder();
+       sb.append("<table>");
+       sb.append("<tr>");
+       sb.append("<th> ID </th>");
+       sb.append("<th> Libelle </th>");
+       sb.append("<th> Marque </th>");
+       sb.append("<th> Prix </th>");
+       sb.append("<th> Caterogies </th>");
+       sb.append("<th> Photo </th>");
+       sb.append("</tr>");
+       
+       for (Article art : list_article) {
+    	   sb.append("<tr>");
+           sb.append("<td>").append(art.getId()).append("</td>");
+           sb.append("<td>").append(art.getLibelle()).append("</td>");
+           sb.append("<td>").append(art.getMarque()).append("</td>");
+           sb.append("<td>").append(art.getPrix()).append("</td>");
+           sb.append("<td>").append(art.getCategorie()).append("</td>");
+           sb.append("<td>").append(art.getPhoto()).append("</td>");
+           sb.append("</tr>");
+       }
+       sb.append("</table>");
+       return sb.toString();
     }
+    
+    
     
     
     @GET
@@ -62,30 +87,28 @@ public class ArticlesRessource {
     }   
     
     @PUT
-    @Path("/data/{id}")
+    @Path("/update/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Article> updateData(@PathParam("id") int id, Article articleUpdate) {
-    	List<Article> articles = new ArrayList<Article>();
-    	articles.addAll(article.upDate(id,articleUpdate));
-        return articles;
+    public List<Article> updateData(Article articleUpdate) {
+    	return article.upDate(articleUpdate);       
     }
     
-    @POST
-    @Produces(MediaType.TEXT_HTML)
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public void newArticle(@FormParam("id") int id,
-            @FormParam("libelle") String libelle,
-            @FormParam("marque") String marque,
-            @FormParam("prix") double prix,
-            @FormParam("categorie") String categorie,
-            @FormParam("photo") String photo,            
-            @Context HttpServletResponse servletResponse) throws IOException {
-        
-        Article art = new Article(id, libelle, marque, prix, categorie, photo);
-
-        //ArticlesDao.instance.getModel().put(id, art);
-
-        servletResponse.sendRedirect("../create_article.html");
-    }
+//    @POST
+//    @Produces(MediaType.TEXT_HTML)
+//    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+//    public void newArticle(@FormParam("id") int id,
+//            @FormParam("libelle") String libelle,
+//            @FormParam("marque") String marque,
+//            @FormParam("prix") double prix,
+//            @FormParam("categorie") String categorie,
+//            @FormParam("photo") String photo,            
+//            @Context HttpServletResponse servletResponse) throws IOException {
+//        
+//        Article art = new Article(id, libelle, marque, prix, categorie, photo);
+//
+//        //ArticlesDao.instance.getModel().put(id, art);
+//
+//        servletResponse.sendRedirect("../create_article.html");
+//    }
 }
