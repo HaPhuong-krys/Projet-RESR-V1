@@ -22,25 +22,25 @@ public class ArticleDAO  {
 	public static ArticleDAO getInstance() {
 		return new ArticleDAO();
 	}
-	
 	//@Override
-	public int ajouter(Article t) {
+	public void ajouter(Article t) {
 		try {
 			Connection con = ConnectData.getConnect();
-			Statement s = con.createStatement();
-			//String sql = "INSERT INTO articles VALUES(\"test4\", \"test4\", 30.30, \"D\", \"photo\")";
-			String sql = "INSERT INTO articles VALUES(" +t.getId() + ",'" + t.getLibelle() +"','" + t.getMarque() +"'," + t.getPrix() +",'" +t.getCategorie() +"','" + t.getPhoto()+"')";
-			System.out.println(sql);
+			String sql = "INSERT INTO articles(libelle, marque, prix, categorie, photo, description) VALUES(?,?,?,?,?,?)";
+			PreparedStatement s = con.prepareStatement(sql);
+				s.setString(1, t.getLibelle());
+				s.setString(2, t.getMarque());
+				s.setDouble(3, t.getPrix());
+				s.setString(4, t.getCategorie());
+				s.setString(5, t.getPhoto());
+				s.setString(6, t.getDescription());
 			
-			int resultat = s.executeUpdate(sql);
+			s.executeUpdate();
 			ConnectData.closeConnect(con);
 		
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		return 0;
 	}
 
 	//@Override
@@ -87,19 +87,6 @@ public class ArticleDAO  {
 	}
 
 	
-
-	//@Override
-	public Article selectById(Article t) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	//@Override
-	public ArrayList<Article> selectByCondition(String condition) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	public List<Article> afficherListArticles() {
 		try {	
 			Connection con = ConnectData.getConnect();
@@ -118,6 +105,7 @@ public class ArticleDAO  {
 				art.setPrix(rs.getDouble("prix"));
 				art.setCategorie(rs.getString("categorie"));
 				art.setPhoto(rs.getString("photo"));
+				art.setDescription("description");
 			
 				articles.add(art);		
 				
@@ -132,6 +120,318 @@ public class ArticleDAO  {
 		}
 		return articles;
 		}
+	
+	public List<Article> afficherListArticlesPCPortable() {
+		try {	
+			Connection con = ConnectData.getConnect();
+			Statement s = con.createStatement();
+			String requeteSQL = "Select * from articles Where categorie =" + "'" + "PC Portable" + "'";			
+			
+			ResultSet rs = s.executeQuery(requeteSQL);;
+			System.out.println("Resultat de l'execution de la requete de selection:");
+			//Article art = new Article();
+			
+			while (rs.next()) {
+				Article art = new Article();
+				art.setId(rs.getInt("id"));
+				art.setLibelle(rs.getString("libelle"));
+				art.setMarque(rs.getString("marque"));
+				art.setPrix(rs.getDouble("prix"));
+				art.setCategorie(rs.getString("categorie"));
+				art.setPhoto(rs.getString("photo"));
+				art.setDescription("description");
+			
+				articles.add(art);		
+				
+			}
+			ConnectData.closeConnect(con);
+			
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return articles;
+		}
+	
+	
+	public List<Article> afficherListArticlesPCBureau() {
+		try {	
+			Connection con = ConnectData.getConnect();
+			Statement s = con.createStatement();
+			String requeteSQL = "Select * from articles Where categorie =" + "'" + "PC de Bureau" + "'";			
+			
+			ResultSet rs = s.executeQuery(requeteSQL);;
+			System.out.println("Resultat de l'execution de la requete de selection:");
+			//Article art = new Article();
+			
+			while (rs.next()) {
+				Article art = new Article();
+				art.setId(rs.getInt("id"));
+				art.setLibelle(rs.getString("libelle"));
+				art.setMarque(rs.getString("marque"));
+				art.setPrix(rs.getDouble("prix"));
+				art.setCategorie(rs.getString("categorie"));
+				art.setPhoto(rs.getString("photo"));
+				art.setDescription("description");
+			
+				articles.add(art);		
+				
+			}
+			ConnectData.closeConnect(con);
+			
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return articles;
+		}
+	
+	public List<Article> afficherListArticlesAccessoireOrdinateur() {
+		try {	
+			Connection con = ConnectData.getConnect();
+			Statement s = con.createStatement();
+			String requeteSQL = "Select * from articles Where categorie =" + "'" + "Accessoire ordinateurs" + "'";			
+			
+			ResultSet rs = s.executeQuery(requeteSQL);;
+			System.out.println("Resultat de l'execution de la requete de selection:");
+			//Article art = new Article();
+			
+			while (rs.next()) {
+				Article art = new Article();
+				art.setId(rs.getInt("id"));
+				art.setLibelle(rs.getString("libelle"));
+				art.setMarque(rs.getString("marque"));
+				art.setPrix(rs.getDouble("prix"));
+				art.setCategorie(rs.getString("categorie"));
+				art.setPhoto(rs.getString("photo"));
+				art.setDescription("description");
+			
+				articles.add(art);		
+				
+			}
+			ConnectData.closeConnect(con);
+			
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return articles;
+		}
+	
+	
+	public List<Article> afficherListArticlesSmartphone() {
+		try {	
+			Connection con = ConnectData.getConnect();
+			Statement s = con.createStatement();
+			String requeteSQL = "Select * from articles Where categorie =" + "'" + "Smart Phone" + "'";			
+			
+			ResultSet rs = s.executeQuery(requeteSQL);;
+			System.out.println("Resultat de l'execution de la requete de selection:");
+			//Article art = new Article();
+			
+			while (rs.next()) {
+				Article art = new Article();
+				art.setId(rs.getInt("id"));
+				art.setLibelle(rs.getString("libelle"));
+				art.setMarque(rs.getString("marque"));
+				art.setPrix(rs.getDouble("prix"));
+				art.setCategorie(rs.getString("categorie"));
+				art.setPhoto(rs.getString("photo"));
+				art.setDescription("description");
+			
+				articles.add(art);		
+				
+			}
+			ConnectData.closeConnect(con);
+			
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return articles;
+		}
+	
+	
+	public List<Article> afficherListArticlesTeleFix() {
+		try {	
+			Connection con = ConnectData.getConnect();
+			Statement s = con.createStatement();
+			String requeteSQL = "Select * from articles Where categorie =" + "'" + "Tel Fix" + "'";			
+			
+			ResultSet rs = s.executeQuery(requeteSQL);;
+			System.out.println("Resultat de l'execution de la requete de selection:");
+			//Article art = new Article();
+			
+			while (rs.next()) {
+				Article art = new Article();
+				art.setId(rs.getInt("id"));
+				art.setLibelle(rs.getString("libelle"));
+				art.setMarque(rs.getString("marque"));
+				art.setPrix(rs.getDouble("prix"));
+				art.setCategorie(rs.getString("categorie"));
+				art.setPhoto(rs.getString("photo"));
+				art.setDescription("description");
+			
+				articles.add(art);		
+				
+			}
+			ConnectData.closeConnect(con);
+			
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return articles;
+		}
+	
+	public List<Article> afficherListArticlesAccessTel() {
+		try {	
+			Connection con = ConnectData.getConnect();
+			Statement s = con.createStatement();
+			String requeteSQL = "Select * from articles Where categorie =" + "'" + "Accessoire telephone" + "'";			
+			
+			ResultSet rs = s.executeQuery(requeteSQL);;
+			System.out.println("Resultat de l'execution de la requete de selection:");
+			//Article art = new Article();
+			
+			while (rs.next()) {
+				Article art = new Article();
+				art.setId(rs.getInt("id"));
+				art.setLibelle(rs.getString("libelle"));
+				art.setMarque(rs.getString("marque"));
+				art.setPrix(rs.getDouble("prix"));
+				art.setCategorie(rs.getString("categorie"));
+				art.setPhoto(rs.getString("photo"));
+				art.setDescription("description");
+			
+				articles.add(art);		
+				
+			}
+			ConnectData.closeConnect(con);
+			
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return articles;
+		}
+	
+	
+	public List<Article> afficherListArticlesDisque() {
+		try {	
+			Connection con = ConnectData.getConnect();
+			Statement s = con.createStatement();
+			String requeteSQL = "Select * from articles Where categorie =" + "'" + "Disque Dur" + "'";			
+			
+			ResultSet rs = s.executeQuery(requeteSQL);;
+			System.out.println("Resultat de l'execution de la requete de selection:");
+			//Article art = new Article();
+			
+			while (rs.next()) {
+				Article art = new Article();
+				art.setId(rs.getInt("id"));
+				art.setLibelle(rs.getString("libelle"));
+				art.setMarque(rs.getString("marque"));
+				art.setPrix(rs.getDouble("prix"));
+				art.setCategorie(rs.getString("categorie"));
+				art.setPhoto(rs.getString("photo"));
+				art.setDescription("description");
+			
+				articles.add(art);		
+				
+			}
+			ConnectData.closeConnect(con);
+			
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return articles;
+		}
+	
+	
+	public List<Article> afficherListArticlesUSB() {
+		try {	
+			Connection con = ConnectData.getConnect();
+			Statement s = con.createStatement();
+			String requeteSQL = "Select * from articles Where categorie =" + "'" + "Cle USB" + "'";			
+			
+			ResultSet rs = s.executeQuery(requeteSQL);;
+			System.out.println("Resultat de l'execution de la requete de selection:");
+			//Article art = new Article();
+			
+			while (rs.next()) {
+				Article art = new Article();
+				art.setId(rs.getInt("id"));
+				art.setLibelle(rs.getString("libelle"));
+				art.setMarque(rs.getString("marque"));
+				art.setPrix(rs.getDouble("prix"));
+				art.setCategorie(rs.getString("categorie"));
+				art.setPhoto(rs.getString("photo"));
+				art.setDescription("description");
+			
+				articles.add(art);		
+				
+			}
+			ConnectData.closeConnect(con);
+			
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return articles;
+		}
+	
+	public List<Article> afficherListArticlesStockage() {
+		try {	
+			Connection con = ConnectData.getConnect();
+			Statement s = con.createStatement();
+			String requeteSQL = "Select * from articles Where categorie =" + "'" + "Accessoire stockage" + "'";			
+			
+			ResultSet rs = s.executeQuery(requeteSQL);;
+			System.out.println("Resultat de l'execution de la requete de selection:");
+			//Article art = new Article();
+			
+			while (rs.next()) {
+				Article art = new Article();
+				art.setId(rs.getInt("id"));
+				art.setLibelle(rs.getString("libelle"));
+				art.setMarque(rs.getString("marque"));
+				art.setPrix(rs.getDouble("prix"));
+				art.setCategorie(rs.getString("categorie"));
+				art.setPhoto(rs.getString("photo"));
+				art.setDescription("description");
+			
+				articles.add(art);		
+				
+			}
+			ConnectData.closeConnect(con);
+			
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return articles;
+		}
+	
 	
 	
 	public Article afficherListArticlesByID(int id) {

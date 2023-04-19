@@ -8,18 +8,20 @@ public class Article {
     private double prix;
     private String categorie;
     private String photo;
+    private String description;
 
     public Article(){
 
     }
     
-    public Article (int id, String libelle, String marque, double prix, String categorie, String photo){
+    public Article (int id, String libelle, String marque, double prix, String categorie, String photo, String description){
         this.id = id;
     	this.libelle = libelle;
         this.marque = marque;
         this.prix = prix;
         this.categorie = categorie;
         this.photo = photo;
+        this.description = description;
     }
     
     public int getId() {
@@ -36,6 +38,14 @@ public class Article {
 
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getMarque() {
