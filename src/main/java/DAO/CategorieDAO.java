@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import DataBase.ConnectData;
-import Model.Article;
 import Model.Categorie;
 
 public class CategorieDAO {
@@ -22,16 +21,15 @@ private List<Categorie> cartegories = new ArrayList<>();
 		try {	
 			Connection con = ConnectData.getConnect();
 			Statement s = con.createStatement();
-			String requeteSQL = "Select * from articles.categories";			
+			String requeteSQL = "Select * from categories";			
 			
-			ResultSet rs = s.executeQuery(requeteSQL);;
+			ResultSet rs = s.executeQuery(requeteSQL);
 			System.out.println("Resultat de l'execution de la requete de selection:");
-			//Article art = new Article();
 			
 			while (rs.next()) {
 				Categorie cat = new Categorie();
 				cat.setId(rs.getInt("id"));
-				cat.setNom_categorie("nom_categorie");
+				cat.setNom_categorie(rs.getString("nom_categorie"));
 				
 				cartegories.add(cat);		
 				

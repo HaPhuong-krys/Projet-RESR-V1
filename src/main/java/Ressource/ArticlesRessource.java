@@ -39,7 +39,6 @@ public class ArticlesRessource {
 
     ArticleDAO article = new ArticleDAO();
     
-
     @GET
     @Path("/list")
     @Produces({MediaType.APPLICATION_JSON})
@@ -145,15 +144,19 @@ public class ArticlesRessource {
     
     
     @GET
-    @Path("/{id}")
+    @Path("list/{id}")
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     public Article getArticlesById(@PathParam("id") int id) {
         return article.afficherListArticlesByID(id);
     }
  
-    
+   /*
+    * 
+    * Méthode pour ajouter une nouvelle article à la base de données
+    * */ 
     @POST
     @Path("/add")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public List<Article> addArticle(Article art) {
         article.ajouter(art);
@@ -161,53 +164,15 @@ public class ArticlesRessource {
         return list_article;
     }
 
-    
-//    @GET
-//    @Path("/modifier-article-forme")
-//    @Produces(MediaType.TEXT_HTML + ";charset=UTF-8")
-//    public String getForme(@QueryParam("id") int id) {
-//        Article art = article.afficherListArticlesByID(id);
-//       
-//
-//        StringBuilder html = new StringBuilder();
-//        html.append("<form method=\"post\" action=\"/Projet-REST-V1/articles/modifier-article-action").append("\">");
-//        html.append("<label>Libellé :</label>");
-//        html.append("<input type=\"text\" name=\"libelle\" value=\"").append(art.getLibelle()).append("\"><br>");
-//        html.append("<label>Marque :</label>");
-//        html.append("<input type=\"text\" name=\"marque\" value=\"").append(art.getMarque()).append("\"><br>");
-//        html.append("<label>Prix :</label>");
-//        html.append("<input type=\"number\" name=\"prix\" value=\"").append(art.getPrix()).append("\"><br>");
-//        html.append("<label>Catégorie :</label>");
-//        html.append("<input type=\"text\" name=\"categorie\" value=\"").append(art.getCategorie()).append("\"><br>");
-//        html.append("<label>Photo :</label>");
-//        html.append("<input type=\"text\" name=\"photo\" value=\"").append(art.getPhoto()).append("\"><br>");
-//        html.append("<input type=\"submit\" value=\"Enregistrer\">");
-//        html.append("</form>");
-//        
-//        return html.toString();
-//    }
-//    
-//    @Path("/modifier-article-action")
-//    @POST
-//    @Produces(MediaType.TEXT_HTML+ ";charset=UTF-8")
-//    public String modifierArticle(@FormParam("id") int id,
-//                                  @FormParam("libelle") String libelle,
-//                                  @FormParam("marque") String marque,
-//                                  @FormParam("prix") double prix,
-//                                  @FormParam("categorie") String categorie,
-//                                  @FormParam("photo") String photo,
-//    							  @FormParam("description") String description){
-//        Article art = new Article(id, libelle, marque, prix, categorie, photo, description);
-//        article.upDate(art);
-//        StringBuilder retour = new StringBuilder("<h1>Article modifié avec succès !</h1>");
-//        retour.append("<a href='/Projet-REST-V1/articles/list").append("'>Retour</a>");
-//        return retour.toString();
-//        
-//       // return("<h1>Article modifié avec succès !</h1>");
-//    }
-
-    
-	
-    
+    @PUT
+    @Path("/update/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateArticle(@PathParam("id") int id, Article article) {
+        ArticleDAO articleDAO = new ArticleDAO();
+        article.setId(id);
+        articleDAO.upDate(article);
+        return Response.ok(article).build();
+    }
 
 }

@@ -3,7 +3,8 @@ package Model;
 public class Categorie {
     private int id;
     private String nom_categorie;
-	public Categorie() {
+	
+    public Categorie() {
 		
 	}
 	

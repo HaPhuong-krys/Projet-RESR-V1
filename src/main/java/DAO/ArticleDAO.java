@@ -48,25 +48,24 @@ public class ArticleDAO  {
 		try {	
 			Connection con = ConnectData.getConnect();
 			String sql = "UPDATE articles SET" + " libelle = '" +t.getLibelle() + "'" +
-												",marque = '" +t.getMarque() + "'" + ",prix = " +t.getPrix() + ",categorie = '" + t.getCategorie() +"'" + ",photo = '" + t.getPhoto() + "'" +
-						"WHERE id = " + t.getId();
+												",marque = '" +t.getMarque() + "'" + ",prix = " +t.getPrix() + ",categorie = '" + t.getCategorie() +"'" + ",photo = '" + t.getPhoto() + "'" +", description= '"+t.getDescription()+"'" +
+						" WHERE id = " + t.getId();
+			System.out.println(sql);
 			PreparedStatement s = con.prepareStatement(sql);
-			ResultSet rs = s.executeQuery(sql);
-			
-			s.setString(1, t.getLibelle());
-	        s.setString(2, t.getMarque());
-	        s.setDouble(3, t.getPrix());
-	        s.setString(4, t.getCategorie());
-	        s.setString((5), t.getPhoto());
-			
+	        
+//	        s.setString(1, t.getLibelle());
+//	        s.setString(2, t.getMarque());
+//	        s.setDouble(3, t.getPrix());
+//	        s.setString(4, t.getCategorie());
+//	        s.setString(5, t.getPhoto());
+//	        s.setInt(6, t.getId());
+//	        
 	        s.executeUpdate();
 	        
-			ConnectData.closeConnect(con);
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		//return articles;
+	        ConnectData.closeConnect(con);
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
 	}
 
 	//@Override
