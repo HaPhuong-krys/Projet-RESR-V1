@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -164,6 +165,9 @@ public class ArticlesRessource {
         return list_article;
     }
 
+    /*
+     * Méthode pour mettre à jour les articles
+     */
     @PUT
     @Path("/update/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -173,6 +177,20 @@ public class ArticlesRessource {
         article.setId(id);
         articleDAO.upDate(article);
         return Response.ok(article).build();
+    }
+
+    @DELETE
+    @Path("/delete/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteArticle(@PathParam("id") int id) {
+        ArticleDAO articleDAO = new ArticleDAO();
+        Article article = articleDAO.afficherListArticlesByID(id);
+        if (article != null) {
+            articleDAO.supprimer(article);
+            return Response.ok(article).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
     }
 
 }
